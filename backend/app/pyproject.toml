@@ -9,6 +9,11 @@ python = "^3.7"
 fastapi = {extras = ["all"], version = "^0.70.1"}
 sqlmodel = "^0.0.6"
 alembic = "^1.7.5"
+psycopg2-binary = "^2.9.3"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.5"
+emails = "^0.6"
 
 [tool.poetry.dev-dependencies]
 

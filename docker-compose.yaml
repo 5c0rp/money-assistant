@@ -1,0 +1,16 @@
+version: "3.6"
+services:
+
+  database:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_DB=money_assistant
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=Secret123
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - pg_data_money_assistant:/var/lib/postgresql/data/
+
+volumes:
+  pg_data_money_assistant:
