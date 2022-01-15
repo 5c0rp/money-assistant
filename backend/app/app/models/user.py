@@ -1,8 +1,12 @@
-from typing import Optional
+from typing import Optional, List, TYPE_CHECKING
 
-from sqlmodel import Field
+from sqlmodel import Field, Relationship
 
 from .base_model import BaseModel
+from .project import UserProjectLink
+
+if TYPE_CHECKING:
+    from app.models import Project
 
 
 class User(BaseModel, table=True):
@@ -12,3 +16,7 @@ class User(BaseModel, table=True):
     hashed_password: str
     is_active: bool = Field(default=True)
     is_superuser: bool = Field(default=False)
+    projects: List["Project"] = Relationship(back_populates="owner")
+    project_set: List["Project"] = Relationship(
+        back_populates="collaborators", link_model=UserProjectLink
+    )
