@@ -6,7 +6,7 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
 
-from app.models.base_model import BaseModel
+from app.models.base_model import BaseSQLModel
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -21,7 +21,7 @@ fileConfig(config.config_file_name)
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 
-target_metadata = BaseModel.metadata
+target_metadata = BaseSQLModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
