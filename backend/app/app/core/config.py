@@ -3,6 +3,7 @@ from typing import Optional, Dict, Any
 
 from pydantic import BaseSettings, PostgresDsn
 from pydantic import validator
+from pydantic.networks import EmailStr
 
 
 class Settings(BaseSettings):
@@ -36,6 +37,9 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
 
     EMAILS_ENABLED: bool = False
+
+    FIRST_SUPERUSER: EmailStr
+    FIRST_SUPERUSER_PASSWORD: str
 
     class Config:
         case_sensitive = True
