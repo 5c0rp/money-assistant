@@ -27,6 +27,17 @@ def read_users(
     return users
 
 
+@router.get("/{email}", response_model=schemas.UserRead)
+def read_user(
+    email: str,
+    db: Session = Depends(deps.get_session),
+) -> Any:
+    """
+    Retrieve user.
+    """
+    return crud.user.get_by_email(db, email=email)
+
+
 @router.post("/", response_model=schemas.UserRead)
 def create_user(
     *,
