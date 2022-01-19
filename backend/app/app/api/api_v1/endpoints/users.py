@@ -29,7 +29,7 @@ def read_users(
 
 @router.get("/{email}", response_model=schemas.UserRead)
 def read_user(
-    email: str,
+    email: EmailStr,
     db: Session = Depends(deps.get_session),
 ) -> Any:
     """
