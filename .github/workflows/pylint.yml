@@ -22,6 +22,8 @@ jobs:
     - name: test
       run: |
         echo '${{ steps.get_file_changes.outputs.files}}'
+        echo "$(git diff --name-only '*.py')"
+        echo "$(git ls-files '*.py')"
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
