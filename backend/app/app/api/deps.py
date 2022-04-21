@@ -7,7 +7,6 @@ from jose import jwt
 from pydantic import ValidationError
 
 from app import crud, models, schemas
-from app.core import security
 from app.core.config import settings
 from app.db.session import engine
 
