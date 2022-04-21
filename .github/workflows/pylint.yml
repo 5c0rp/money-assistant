@@ -34,4 +34,4 @@ jobs:
     - name: Analysing the code with pylint
       if: ${{ steps.get_file_changes.outputs.any_changed }}
       run: |
-        pylint ${{ steps.get_file_changes.outputs.all_changed_files}}
+        pylint ${{ steps.get_file_changes.outputs.all_changed_files }}
