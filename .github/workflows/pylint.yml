@@ -18,10 +18,8 @@ jobs:
       id: get_file_changes
       uses: tj-actions/changed-files@v18.7
       with:
-        separator: ' '
-        files: |
-          *.py
-          **/*.py
+        separator: " "
+        files: "*.py"
     - name: test
       run: |
         echo '${{ steps.get_file_changes.outputs.all_changed_files }}'
