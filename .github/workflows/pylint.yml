@@ -21,6 +21,7 @@ jobs:
         separator: ' '
         files: |
           *.py
+          **/*.py
     - name: test
       run: |
         echo '${{ steps.get_file_changes.outputs.all_changed_files }}'
