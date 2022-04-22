@@ -25,6 +25,7 @@ jobs:
         files: "**/*.py"
     - name: Install dependencies
       run: |
+        pip install pylint
         cd backend/app
         poetry install
     - name: Analysing the code with pylint
