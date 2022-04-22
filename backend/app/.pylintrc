@@ -1,6 +1,5 @@
 [MASTER]
 ignore-paths=alembic/
-load-plugins=pylint_django
 fail-under=8
 
 [MESSAGES CONTROL]
