@@ -16,6 +16,7 @@ python-multipart = "^0.0.5"
 emails = "^0.6"
 uvloop = "^0.16.0"
 pylint = "^2.13.7"
+pylint-pydantic = "^0.1.4"
 
 [tool.poetry.dev-dependencies]
 

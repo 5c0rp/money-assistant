@@ -1,6 +1,8 @@
 [MASTER]
 ignore-paths=alembic/
+load-plugins=pylint_pydantic
 fail-under=8
+good-names=db,id
 
 [MESSAGES CONTROL]
 disable=C0111,C0301,W0511

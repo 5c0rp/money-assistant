@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Optional, TYPE_CHECKING
 
-from sqlmodel import Field, Relationship, Column, DateTime, func, Boolean
+from sqlmodel import Field, Relationship, Column, DateTime, func
 
 from .base_model import BaseSQLModel
 
