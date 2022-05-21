@@ -6,37 +6,46 @@ env:
   POETRY_VERSION: 1.1.13
 
 jobs:
-  build:
+  check_changed_files:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.9"]
     steps:
     - uses: actions/checkout@v3
-    - name: Cache Poetry
-      uses: actions/cache@v2
-      with:
-        path: ~/.cache/pypoetry
-        key: poetry-cache-${{ runner.os }}-${{ matrix.python-version }}-${{ env.POETRY_VERSION }}-${{ hashFiles('**/poetry.lock') }}
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install Poetry
-      run: |
-        curl -sSL https://install.python-poetry.org | python3 - --version ${{ env.POETRY_VERSION }}
-        poetry config --list
-    - name: Get file changes
-      id: get_file_changes
+
+    - name: Get changed files
+      id: get_changed_files
       uses: tj-actions/changed-files@v18.7
       with:
         separator: " "
         files: "**/*.py"
-    - name: Install dependencies
-      run: |
-        cd backend/app
-        poetry install
-    - name: Analysing the code with pylint
-      run: |
-        cd backend/app
-        poetry run pylint --rcfile=.pylintrc $(git ls-files '*.py')
+
+  pylint:
+    needs: [check_changed_files]
+    if: check_changed_files.steps.get_changed_files.outputs.any_changed == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.9" ]
+    steps:
+      - name: Cache Poetry
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pypoetry
+          key: poetry-cache-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Poetry
+        run: curl -sSL https://install.python-poetry.org | python3 - --version ${{ env.POETRY_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          cd backend/app
+          poetry install
+
+      - name: Analysing the code with pylint
+        run: |
+          cd backend/app
+          poetry run pylint --rcfile=.pylintrc $(git ls-files '*.py')
