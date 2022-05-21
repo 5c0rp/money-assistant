@@ -2,6 +2,9 @@ name: Pylint
 
 on: [push]
 
+env:
+  POETRY_VERSION: 1.2.0
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,23 +13,28 @@ jobs:
         python-version: ["3.9"]
     steps:
     - uses: actions/checkout@v3
-    - name: Install poetry
-      run: pipx install poetry
+#    - name: Install poetry
+#      run: pipx install poetry
+    - name: Cache Poetry
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pypoetry
+        key: poetry-cache-${{ runner.os }}-${{ matrix.python-version }}-${{ env.POETRY_VERSION }}-${{ hashFiles('**/poetry.lock') }}
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-        cache: "poetry"
+#        cache: "poetry"
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 - --version ${{ env.POETRY_VERSION }}
+        poetry config --list
     - name: Get file changes
       id: get_file_changes
       uses: tj-actions/changed-files@v18.7
       with:
         separator: " "
         files: "**/*.py"
-    - name: Switch python version for poetry
-      run: |
-        cd backend/app
-        poetry env use python${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         cd backend/app
