@@ -11,10 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v3
-      run: pipx install poetry
       with:
         python-version: ${{ matrix.python-version }}
         cache: "poetry"
+    - name: Install poetry
+      run: pipx install poetry
     - name: Get file changes
       id: get_file_changes
       uses: tj-actions/changed-files@v18.7
