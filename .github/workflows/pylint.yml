@@ -43,4 +43,4 @@ jobs:
       if: steps.get_changed_files.outputs.any_changed == 'true'
       run: |
         cd backend/app
-        pylint --rcfile=.pylintrc ${{ steps.get_changed_files.outputs.all_changed_files }}
+        poetry run pylint --rcfile=.pylintrc ${{ steps.get_changed_files.outputs.all_changed_files }}
