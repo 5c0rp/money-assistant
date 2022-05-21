@@ -29,10 +29,7 @@ jobs:
         poetry env use python${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python --version
-        python3 --version
         cd backend/app
-        poetry env list
         poetry install
     - name: Analysing the code with pylint
       run: |
