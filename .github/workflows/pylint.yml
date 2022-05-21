@@ -10,11 +10,15 @@ jobs:
         python-version: ["3.9"]
     steps:
     - uses: actions/checkout@v3
+    - name: Install poetry
+      run: |
+        python --version
+        python3 --version
+        pipx install poetry
     - uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install poetry
-      run: pipx install poetry
+        cache: "poetry"
     - name: Get file changes
       id: get_file_changes
       uses: tj-actions/changed-files@v18.7
@@ -23,6 +27,8 @@ jobs:
         files: "**/*.py"
     - name: Install dependencies
       run: |
+        python --version
+        python3 --version
         cd backend/app
         poetry install
     - name: Analysing the code with pylint
