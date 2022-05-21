@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Get file changes
-      id: get_file_changes
+      id: get_changed_files
       uses: tj-actions/changed-files@v18.7
       with:
         separator: " "
