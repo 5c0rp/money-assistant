@@ -20,7 +20,7 @@ jobs:
 
   pylint:
     needs: [check_changed_files]
-    if: check_changed_files.steps.get_changed_files.outputs.any_changed == 'true'
+    if: needs.check_changed_files.steps.get_changed_files.outputs.any_changed == 'true'
     runs-on: ubuntu-latest
     strategy:
       matrix:
