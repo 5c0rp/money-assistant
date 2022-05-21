@@ -27,7 +27,7 @@ jobs:
         python --version
         python3 --version
         cd backend/app
-        poerty env list
+        poetry env list
         poetry install
     - name: Analysing the code with pylint
       run: |
