@@ -8,6 +8,9 @@ env:
 jobs:
   check_changed_files:
     runs-on: ubuntu-latest
+    outputs:
+      any_changed: ${{ steps.get_changed_files.outputs.any_changed }}
+      all_changed_files: ${{ steps.get_changed_files.outputs.all_changed_files }}
     steps:
       - uses: actions/checkout@v3
 
@@ -20,7 +23,7 @@ jobs:
 
   pylint:
     needs: [check_changed_files]
-#    if: needs.check_changed_files.steps.get_changed_files.outputs.any_changed == 'true'
+    if: needs.check_changed_files.outputs.any_changed == 'true'
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -41,6 +44,7 @@ jobs:
 
       - name: Install Poetry
         run: |
+          echo ${{ needs.check_changed_files.outputs.all_changed_files }}
           curl -sSL https://install.python-poetry.org | python3 - --version ${{ env.POETRY_VERSION }}
 
       - name: Install dependencies
