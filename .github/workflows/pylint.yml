@@ -17,14 +17,16 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         cache: "poetry"
-    - name: Switch python version for poetry
-      run: poetry env use python${{ matrix.python-version }}
     - name: Get file changes
       id: get_file_changes
       uses: tj-actions/changed-files@v18.7
       with:
         separator: " "
         files: "**/*.py"
+    - name: Switch python version for poetry
+      run: |
+        cd backend/app
+        poetry env use python${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         python --version
